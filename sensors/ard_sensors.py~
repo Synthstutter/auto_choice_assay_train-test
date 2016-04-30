@@ -1,0 +1,12 @@
+from sensor import Sensor
+
+class ard_sensor(Sensor):
+    def __init__(self, arduino, sensor_type):
+        self.arduino = arduino
+        self.sensor_type = sensor_type
+
+    def grab(self, threshold = False):
+        data_output = False
+        if sensor_type == 'ir':
+           data_output = arduino.read() 
+        self.output(data_output) 

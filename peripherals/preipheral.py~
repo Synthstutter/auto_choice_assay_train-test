@@ -1,0 +1,6 @@
+class Peripheral():
+    def __init__(self, device_name, group):
+        self.device_id = device_name
+        self.group = group
+        self.active = True
+
