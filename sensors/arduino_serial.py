@@ -3,13 +3,17 @@ import time as t
 import random
 
 class Arduino():
-
-    def start(self, serial_name='/dev/ttyACM0'):
+    def __init__(self, serial_name, device_name, sensor_type, pin):
+        self.sensor_type = sensor_type
+        self.device_name = device_name
+        self.pin = pin
+        
         if serial_name=='dummy':
             self.ard = None
             self.read = self.dummy_read
             self.write = self.dummy_write
             self.waiting = self.dummy_waiting
+            
         else:
             self.ard = serial.Serial(serial_name)
             self.read = self.serial_read

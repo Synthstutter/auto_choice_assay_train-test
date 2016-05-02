@@ -1,6 +1,9 @@
 from peripheral import Peripheral
-import RPi.GPIO as GPIO
-
+try:
+    import RPi.GPIO as GPIO
+except:
+    print "RPi.GRPIO library not installed. Is this even a raspberry pi?"
+    
 class Feeder(Peripheral):
     def __init__(self):
         if len(self.gpio_pins) > 1:

@@ -6,8 +6,8 @@ serial_name = "dummy"
 
 #the number of arduino sensors and thresholds and raspberry pi sensors
 ard_sensors = [
-    ['name', 'arduino_device', 'ir'] ,
-    ['name', 'arduino_device', 'ir'],
+    ['left_box', 'ir', "A0"],
+    ['right_box', 'ir', "A1"],
     ]
     
 rasp_sensors = [
@@ -20,8 +20,8 @@ program = ["a_b_switching", "simple"]
 #need to put raspberry pi pins here for these as the 3rd argument. 
 periphs =[['led_matrix', 'a' ],
           ['led_matrix', 'b' ],
-          ['feeder', 'a', 1],
-          ['feeder', 'b', 2]
+          ['test_feeder', 'a', 1],
+          ['test_feeder', 'b', 2]
          ]
 
 switch_seconds = [30, 300] # min time, max time

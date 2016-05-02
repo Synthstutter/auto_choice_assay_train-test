@@ -1,4 +1,4 @@
-from peripherals import feeder, max7219
+from peripherals import feeder, led_matrix
 import threading
 import time as t
 
@@ -14,8 +14,7 @@ def create_devices(periphs):
     return periphs_classes
 
 class Scheduler():
-    def __init__(current_experiment):
-        self.running = False
+    def __init__(self, current_experiment):
         self.training = False
         self.testing = False
         self.current_experiment = current_experiment
@@ -27,7 +26,8 @@ class Scheduler():
         self.periphs = create_devices(current_experiment.periphs)
 
     def run_program(self):
-        while self.running:
+        global running
+        while running:
             if self.program[0] == "a_b_switching" and self.program[1] == "simple":
                 for item in self.periphs:
                     if item.group == "a":
