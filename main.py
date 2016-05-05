@@ -6,7 +6,7 @@ from tagger import Data_handler
 from sensors import arduino_serial
 from scheduler import Scheduler
 
-import threading
+# import threading
 
 def main():
     menu = Menu()
@@ -17,17 +17,19 @@ def main():
                                        pin = sensor[2])
                     for sensor in curr_exp.ard_sensors]
 
-    
     running = True
 
     scheduler = Scheduler(curr_exp)
-    schedule_thread = threading.Thread(target=scheduler.run_program)
-    schedule_thread.run()
+    # schedule_thread = threading.Thread(target=scheduler.run_program)
+    # schedule_thread.run()
 
     tagger = Data_handler(curr_exp)
-    sensor_thread = threading.Thread(target = tagger.ard_grab_and_tag_data)
-    sensor_thread.run()
+    # sensor_thread = threading.Thread(target=tagger.ard_grab_and_tag_data)
+    # sensor_thread.run()
 
-
+    while running:
+        scheduler.run_program()
+        # tagger.ard_grab_and_tag_data()
+        
 if __name__ == "__main__":
     main()    
