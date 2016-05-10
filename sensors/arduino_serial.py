@@ -1,38 +1,50 @@
 import serial
 import time as t
 import random
+from dummy_bee import Dummy_bee
 
 class Arduino():
     def __init__(self, serial_name, device_name, sensor_type, pin):
+        self.serial_name = serial_name
+        self.ser = False
+        self.dummy = False
+        if serial_name == "dummy":
+            self.dummy = True
+                    
         self.sensor_type = sensor_type
         self.device_name = device_name
         self.pin = pin
-        
-        if serial_name=='dummy':
-            self.ard = None
+        self.start()        
+
+    def start(self):
+        if self.dummy:
+            self.ser = None
             self.read = self.dummy_read
             self.write = self.dummy_write
             self.waiting = self.dummy_waiting
             
         else:
-            self.ard = serial.Serial(serial_name)
+            self.ser = serial.Serial(serial_name)
             self.read = self.serial_read
             self.write = self.serial_write
             self.waiting = self.serial_waiting
             
     def write(self,value):
-        self.ard.write(value)
+        if not self.dummy:
+            self.ser.write(value)
+        if self.dummy:
+            print "Sent " + str(value) + " to dummy arduino."
  
     def read(self):
-        if self.ard.inWaiting()>0:
-            retrieved_value =  self.ard.readline()
+        if self.ser.inWaiting()>0:
+            retrieved_value =  self.ser.readline()
         else:
             retrieved_value = None
         return retrieved_value
        
-    def serial_read(self, channel=0):
-       self.ard.write(chr(channel*2)) #request reading the channel
-       return ord(self.ard.read(1))
+    # def serial_read(self, channel=0):
+    #    self.ard.write(chr(channel*2)) #request reading the channel
+    #    return ord(self.ard.read(1))
 
     def weighted_choice(self, choices):
         'used just for dummy read'
@@ -46,17 +58,20 @@ class Arduino():
         assert False, "Shouldn't get here"
 
     def dummy_read(self):
-        return self.weighted_choice([[None,100000],['1\n',1], ['2\n',2]])
+        cross =  self.weighted_choice([[False,50],['1',1], ['2',2]])
+        if cross:
+            print cross 
+        return cross
     
     def serial_write(self, channel=0, value=0):
         '''Write a high (1) or low (0) value to channels 0--7.'''
-        self.ard.write(chr(channel*2 + 1 + 16*value))
+        self.ser.write(chr(channel*2 + 1 + 16*value))
 
     def dummy_write(self, value):
         print "sent " + str(value) + " to dummy arduino"
 
     def serial_waiting(self):
-        print self.ard.inWaiting()
+        print self.ser.inWaiting()
 
     def dummy_waiting(self):
         return randint(0,1)

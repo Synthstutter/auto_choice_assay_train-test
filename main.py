@@ -11,12 +11,15 @@ from scheduler import Scheduler
 def main():
     menu = Menu()
     curr_exp = Current_experiment(import_module("experiments." + menu.experiments_prompt()))
+    
     arduinos = [arduino_serial.Arduino(serial_name = curr_exp.serial_name,
                                        device_name = sensor[0],
                                        sensor_type = sensor[1],
                                        pin = sensor[2])
-                    for sensor in curr_exp.ard_sensors]
-
+                    for sensor in curr_exp.ard_sensors]    
+    for arduino in arduinos:
+        arduino.start()
+        
     running = True
 
     scheduler = Scheduler(curr_exp)
@@ -28,8 +31,9 @@ def main():
     # sensor_thread.run()
 
     while running:
-        scheduler.run_program()
-        # tagger.ard_grab_and_tag_data()
+        for arduino in arduinos:
+            # scheduler.run_program()
+            tagger.ard_grab_and_tag_data(arduino)
         
 if __name__ == "__main__":
     main()    

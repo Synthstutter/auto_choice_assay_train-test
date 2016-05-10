@@ -33,9 +33,8 @@ save_file_name = "test_data.txt"
 
 #data to tag
 save_model = [
-    ["ard_sensor", 0],
-    ["ard_sensor", 1],
-    ["datetime"],
-    ["correct"],
+    "ard_sensor",
+    "datetime",
+    # ["correct"],
     ]
 
