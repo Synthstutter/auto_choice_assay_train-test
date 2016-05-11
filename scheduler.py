@@ -1,5 +1,4 @@
 from peripherals import feeder, led_matrix
-import threading
 import time as t
 from random import shuffle, randint
 import numpy as np
@@ -30,7 +29,6 @@ class Scheduler():
     def __init__(self, current_experiment):
         self.training = False
         self.testing = False
-        # self.schedule = current_experiment.device_schedule
         self.program = current_experiment.program
         self.training_switch_seconds_min = current_experiment.training_switch_seconds[0]
         self.training_switch_seconds_max = current_experiment.training_switch_seconds[1]

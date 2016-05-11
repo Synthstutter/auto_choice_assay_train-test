@@ -1,3 +1,7 @@
+By: Nicholas Palermo, 2016. Florida International University. npale005@fiu.edu
+* overview of device
+- This device is designed to run choice assays on honeybees automatically. Parameters are put into a file in the experiments folder and the user selects which experiment to start. Once started, python will generate a static schedule for group a and group b devices (A and B are the choices) and it will include training and testing bouts. A device controller will check the schedule and tell devices what to do. A tagger will tag the incoming data (using a model specified in the experiment) and save it to the database. 
+
 * 2016-05-11 10:21
 - dummy devices working, data tagger working for dummy devices
 - next I have to add the schedule interpreter to send commands to the pheripheral devices. Also in plans: I need an analyzer to look at the schedule to determine if the cross is "correct"
