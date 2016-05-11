@@ -23,6 +23,7 @@ def main():
     running = True
 
     scheduler = Scheduler(curr_exp)
+    scheduler.create_schedule()
     # schedule_thread = threading.Thread(target=scheduler.run_program)
     # schedule_thread.run()
 

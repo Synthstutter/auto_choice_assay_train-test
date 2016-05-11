@@ -1,4 +1,4 @@
-current_exp = False
+# current_exp = False
 
 class Current_experiment():
     def __init__(self, experiment_object):
@@ -10,6 +10,9 @@ class Current_experiment():
         self.rasp_sensors = experiment_object.rasp_sensors
         self.program = experiment_object.program
         self.periphs = experiment_object.periphs
-        self.switch_seconds = experiment_object.switch_seconds
-        self.testing_seconds = experiment_object.testing_seconds
+        self.training_switch_seconds = experiment_object.training_switch_seconds
+        self.testing_duration_secs = experiment_object.testing_duration_secs
+        self.testing_how_often = experiment_object.testing_how_often
+        self.start_time = experiment_object.start_time
+        self.end_time = experiment_object.end_time
         # self.device_schedule = experiment_object.device_schedule

@@ -1,6 +1,3 @@
-#the experiment name used for data file name
-exp_name = "test_experiment"
-
 # by default, serial name is /dev/ttyACM0, "dummy" will have a fake arduino input
 serial_name = "dummy"
 
@@ -14,6 +11,7 @@ ard_sensors = [
 rasp_sensors = [
     ]
 
+########################################################################    
 #action of peripherals
 program = ["a_b_switching", "simple"]
                
@@ -25,8 +23,17 @@ periphs =[['dummy_led_matrix', 'a' ],
           ['dummy_feeder', 'b', 2]
          ]
 
-switch_seconds = [30, 300] # min time, max time
-testing_seconds = [1880, 120] # test every ___ seconds for ____ seconds
+training_switch_seconds = [30, 300] # min time, max time
+testing_duration_secs = 120 # test for ____ seconds
+testing_how_often = [900, 1800] # [test every min secs, max secs]
+
+#for start and end times use minute of day. 6 am would be 360 for instance
+start_time = 360 
+end_time = 1080 
+#########################################################################
+
+#the experiment name used for data file name
+exp_name = "test_experiment"
 
 #database to save to
 save_file_name = "test_data.txt"
