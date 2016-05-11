@@ -1,0 +1,4 @@
+* 2016-05-11 10:21
+- dummy devices working, data tagger working for dummy devices
+- next I have to add the schedule interpreter to send commands to the pheripheral devices. Also in plans: I need an analyzer to look at the schedule to determine if the cross is "correct"
+
