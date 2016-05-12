@@ -1,5 +1,5 @@
 from random import shuffle, randint
-import pdb
+
 
 class Scheduler():
     def __init__(self, current_experiment):
