@@ -81,4 +81,3 @@ class Scheduler():
             group_a_schedule[i] = [i*resolution, group_a_schedule[i]]
             group_b_schedule[i] = [i*resolution, group_b_schedule[i]]
         self.schedule_a, self.schedule_b = group_a_schedule, group_b_schedule
-        

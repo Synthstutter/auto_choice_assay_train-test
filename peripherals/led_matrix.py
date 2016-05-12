@@ -2,26 +2,26 @@ from max7219 import led
 import numpy as np
 from peripheral import Peripheral
 import time as t
-
+import pdb
 #remember that to use max7219 library, SPI needs sudo access. Look at github page for max7219 library for directions on how to do this
 
 class Led_matrix(Peripheral):
     def __init__(self, *args, **kwargs):
         Peripheral.__init__(self, *args, **kwargs)
-        
+                
     def start(self):
         if not self.dummy:
             self.led_init = led.matrix(cascaded = 1)
             self.mat = []
             self.update = self.update
-            self.activate_testing = self.acivate
+            self.activate_testing = self.activate
             self.deactivate_testing = self.deactivate
         if self.dummy:
             self.draw_bars = self.dummy_draw_bars
             self.update = self.dummy_update
-            self.activate_testing = self.dummy_acivate
-            self.deactivate_testing = self.dummy_deactivate
-    
+            self.activate_testing = self.activate
+            self.deactivate_testing = self.deactivate
+
     def draw_bars(self, vertical = True):
         if vertical:
             self.mat=np.matrix(

@@ -30,7 +30,8 @@ def main():
     
     tagger = Data_handler(curr_exp)
     previous_time = datetime.now()
-        
+    controller.send_scheduled_commands()
+    
     while running:
         if (datetime.now() - previous_time).total_seconds() > 5:
             controller.send_scheduled_commands()
