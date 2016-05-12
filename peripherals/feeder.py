@@ -7,16 +7,21 @@ except:
 class Feeder(Peripheral):
     def __init__(self, *args, **kwargs):
         Peripheral.__init__(self, *args, **kwargs)
-    
+        
     def start(self):
         if not self.dummy:
             self.open_feeder = self.open_feeder
             self.close_feeder = self.close_feeder
-            # self.update = update_feeder
+            self.off = self.close_feeder
+            self.activate_testing = self.close_feeder
+            self.deactivate_testing = self.close_feeder
+            
         if self.dummy:
             self.open_feeder = self.dummy_open_feeder
             self.close_feeder = self.dummy_close_feeder
-            # self.update = dummy_update_feeder
+            self.off = self.dummy_close_feeder
+            self.activate_testing = self.dummy_close_feeder
+            self.deactivate_testing = self.dummy_close_feeder
             
     def open_feeder(self):
         self.status = "open"
@@ -42,3 +47,4 @@ class Feeder(Peripheral):
     #     if self.status == "open":
     #         #set motor command here    
     #     if self.status == "closed":
+    

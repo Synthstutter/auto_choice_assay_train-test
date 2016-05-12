@@ -76,11 +76,9 @@ class Scheduler():
             group_b_schedule[time_interval] = "off"
             time_interval += 1
             if time_interval >= end_step:
-                # pdb.set_trace()
                 building_testing_schedule = False
         for i in range(len(group_a_schedule)):
             group_a_schedule[i] = [i*resolution, group_a_schedule[i]]
             group_b_schedule[i] = [i*resolution, group_b_schedule[i]]
-        pdb.set_trace()
         self.schedule_a, self.schedule_b = group_a_schedule, group_b_schedule
         

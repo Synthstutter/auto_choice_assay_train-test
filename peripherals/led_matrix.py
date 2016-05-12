@@ -14,9 +14,13 @@ class Led_matrix(Peripheral):
             self.led_init = led.matrix(cascaded = 1)
             self.mat = []
             self.update = self.update
+            self.activate_testing = self.acivate
+            self.deactivate_testing = self.deactivate
         if self.dummy:
             self.draw_bars = self.dummy_draw_bars
             self.update = self.dummy_update
+            self.activate_testing = self.dummy_acivate
+            self.deactivate_testing = self.dummy_deactivate
     
     def draw_bars(self, vertical = True):
         if vertical:
@@ -70,6 +74,10 @@ class Led_matrix(Peripheral):
         for i in range(0, height):
             for k in range(0, width):
                 self.device.pixel(k,i, mat[i,k], redraw = False)
+        self.status = "off"
+
+    def dummy_clear_matrix(self):
+        self.status = "off" 
         
     def update(self):
         self.device.flush()
@@ -119,4 +127,12 @@ class Led_matrix(Peripheral):
             self.update()
         elif self.dummy:
             self.dummy_draw_bars(vertical = False)
+            self.dummy_update()
+
+    def off(self):
+        if not self.dummy:
+            self.clear_matrix()
+            self.update()
+        if self.dummy:
+            self.dummy_clear_matrix()
             self.dummy_update()

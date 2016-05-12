@@ -1,12 +1,14 @@
 #!/usr/bin/python
 from importlib import import_module
+from datetime import datetime
+
 from menu import Menu
 from current_experiment import Current_experiment
 from tagger import Data_handler
 from sensors import arduino_serial
 from scheduler import Scheduler
+from periph_controller import Controller
 
-# import threading
 
 def main():
     menu = Menu()
@@ -23,17 +25,18 @@ def main():
     running = True
 
     scheduler = Scheduler(curr_exp)
-    scheduler.create_schedule()
-    # schedule_thread = threading.Thread(target=scheduler.run_program)
-    # schedule_thread.run()
-
+    controller = Controller(curr_exp, scheduler.schedule_a, scheduler.schedule_b)
+    
+    
     tagger = Data_handler(curr_exp)
-    # sensor_thread = threading.Thread(target=tagger.ard_grab_and_tag_data)
-    # sensor_thread.run()
-
+    previous_time = datetime.now()
+        
     while running:
+        if (datetime.now() - previous_time).total_seconds() > 5:
+            controller.send_scheduled_commands()
+            previous_time = datetime.now()
+            
         for arduino in arduinos:
-            # scheduler.run_program()
             tagger.ard_grab_and_tag_data(arduino)
         
 if __name__ == "__main__":
