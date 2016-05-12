@@ -25,12 +25,13 @@ def main():
     running = True
 
     scheduler = Scheduler(curr_exp)
+
     controller = Controller(curr_exp, scheduler.schedule_a, scheduler.schedule_b)
-    
-    
-    tagger = Data_handler(curr_exp)
-    previous_time = datetime.now()
     controller.send_scheduled_commands()
+    
+    tagger = Data_handler(curr_exp, scheduler.schedule_a, scheduler.schedule_b)
+    previous_time = datetime.now()
+    
     
     while running:
         if (datetime.now() - previous_time).total_seconds() > 5:

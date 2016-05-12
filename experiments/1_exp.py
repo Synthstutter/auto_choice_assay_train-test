@@ -42,6 +42,8 @@ save_file_name = "test_data.txt"
 save_model = [
     "ard_sensor",
     "datetime",
+    "correct?",
+    "training?"
     # ["correct"],
     ]
 

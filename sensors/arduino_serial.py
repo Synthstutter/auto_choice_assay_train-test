@@ -58,7 +58,7 @@ class Arduino():
         assert False, "Shouldn't get here"
 
     def dummy_read(self):
-        cross =  self.weighted_choice([[False,50],['1',1], ['2',2]])
+        cross =  self.weighted_choice([[False,50],['a',1], ['b',2]])
         if cross:
             print cross 
         return cross
