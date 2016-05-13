@@ -3,7 +3,13 @@ import numpy as np
 from peripheral import Peripheral
 import time as t
 import pdb
-#remember that to use max7219 library, SPI needs sudo access. Look at github page for max7219 library for directions on how to do this
+#remember that to use max7219 library, SPI needs to be activated via raspi-config. Look at github page for max7219 library for directions on how to do this
+# connect as follows:
+#+5V -> RPi pin 2, +5V
+#GND -> RPi pin 6, GND
+#DIN -> RPi pin 19, GPIO 10(MOSI)
+#CS  -> RPi pin 24, GPIO 8(SPI CE0)
+#CLK -> RPi pin 23, GPIO 11(SPI CLK)
 
 class Led_matrix(Peripheral):
     def __init__(self, *args, **kwargs):

@@ -3,6 +3,7 @@ from datetime import datetime
 import pdb
 
 def create_devices(periphs):
+    "creates device objects and starts them. Starting them is important to set the variables for activate and deactivate. "
     devices_classes = []
     for item in periphs:
         if item[0] == "feeder":
@@ -49,6 +50,7 @@ def lookup_and_send (devices, group, schedule):
 
 
 class Controller():
+    "Looks at schedule and tells the peripheral devices what to do."
     def __init__(self, current_experiment, schedule_a, schedule_b):
         self.devices = create_devices(current_experiment.periphs)
         for device in self.devices:
