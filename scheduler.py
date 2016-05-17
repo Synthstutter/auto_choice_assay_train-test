@@ -1,5 +1,4 @@
 from random import shuffle, randint
-import pdb
 
 class Scheduler():
     def __init__(self, current_experiment):
@@ -19,7 +18,6 @@ class Scheduler():
         resolution = 30 #seconds per smallest resolution
         group_a_schedule = [None] * (24*3600/resolution)
         group_b_schedule = [None] * (24*3600/resolution)
-        pdb.set_trace()
         start_step = self.start_time*60/resolution
         end_step = self.end_time*60/resolution
         

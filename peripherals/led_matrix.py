@@ -14,7 +14,7 @@ import pdb
 class Led_matrix(Peripheral):
     def __init__(self, *args, **kwargs):
         Peripheral.__init__(self, *args, **kwargs)
-                
+        self.device = led.matrix()        
     def start(self):
         if not self.dummy:
             self.led_init = led.matrix(cascaded = 1)
@@ -55,11 +55,11 @@ class Led_matrix(Peripheral):
             [1,1,1,1,1,1,1,1]
             ])
             self.status = "horizontal_bars"
-        height = mat.shape[0]
-        width = mat.shape[1]
+        height = self.mat.shape[0]
+        width = self.mat.shape[1]
         for i in range(0, height):
             for k in range(0, width):
-                self.device.pixel(k,i, mat[i,k], redraw = False)
+                self.device.pixel(k,i, self.mat[i,k], redraw = False)
 
     def clear_matrix(self):
         
@@ -75,11 +75,11 @@ class Led_matrix(Peripheral):
             [0,0,0,0,0,0,0,0]
             ])
         self.status = "off"
-        height = mat.shape[0]
-        width = mat.shape[1]
+        height = self.mat.shape[0]
+        width = self.mat.shape[1]
         for i in range(0, height):
             for k in range(0, width):
-                self.device.pixel(k,i, mat[i,k], redraw = False)
+                self.device.pixel(k,i, self.mat[i,k], redraw = False)
         self.status = "off"
 
     def dummy_clear_matrix(self):
