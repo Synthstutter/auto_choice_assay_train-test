@@ -26,7 +26,7 @@ def main():
 
     scheduler = Scheduler(curr_exp)
 
-    controller = Controller(curr_exp, scheduler.schedule_a, scheduler.schedule_b)
+    controller = Controller(curr_exp, scheduler.schedule_a, scheduler.schedule_b, scheduler.schedule_mat)
     controller.send_scheduled_commands()
     
     tagger = Data_handler(curr_exp, scheduler.schedule_a, scheduler.schedule_b)
@@ -41,9 +41,10 @@ def main():
             
             for arduino in arduinos:
                 tagger.ard_grab_and_tag_data(arduino)
-
+        except KeyboardInterrupt:
+            running = False
         
-
-
 if __name__ == "__main__":
     main()    
+
+    

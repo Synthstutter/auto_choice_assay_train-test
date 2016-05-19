@@ -1,15 +1,15 @@
-import pigpio
 from peripheral import Peripheral
+
 try:
     import pigpio
 except:
-    print "pigpio library not installed. Is this even a raspberry pi?"
+    pass
     
 class Feeder(Peripheral):
-    def __init__(self, pi = None, *args, **kwargs):
+    def __init__(self, group, pi = None, *args, **kwargs):
         Peripheral.__init__(self, *args, **kwargs)
         self.pi = pi
-    
+        self.group = group
     def start(self):
         self.status = "closed"
         if not self.dummy:
