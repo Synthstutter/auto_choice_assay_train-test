@@ -7,11 +7,11 @@ def create_devices(periphs):
     devices_classes = []
     for item in periphs:
         if item[0] == "feeder":
-            dev = feeder.Feeder(group=item[1], gpio_pins=item[2])
+            dev = feeder.Feeder(group=item[1], gpio_pin = item[2])
             dev.start()
             devices_classes.append(dev)
         if item[0] == "dummy_feeder":
-            dev = feeder.Feeder(group = item[1], gpio_pins = item[2], dummy = True)
+            dev = feeder.Feeder(group = item[1], gpio_pin = item[2], dummy = True)
             dev.start()
             devices_classes.append(dev)
         if item[0] == "led_matrix":

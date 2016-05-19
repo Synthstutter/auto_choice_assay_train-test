@@ -19,7 +19,7 @@ program = ["a_b_switching", "simple"]
 #need to put raspberry pi pins here for these as the 3rd argument if needed. preface with "dummy_" for setting up a dummy version of peripheral device
 periphs =[['led_matrix', 'a' ],
           ['dummy_led_matrix', 'b' ],
-          ['dummy_feeder', 'a', 1],
+          ['feeder', 'a', 18],
           ['dummy_feeder', 'b', 2]
          ]
 

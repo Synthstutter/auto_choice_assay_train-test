@@ -8,6 +8,13 @@ class Feeder(Peripheral):
     def __init__(self, *args, **kwargs):
         Peripheral.__init__(self, *args, **kwargs)
         
+        
+        if not self.dummy:
+            GPIO.setmode(GPIO.BOARD)
+            GPIO.setup(self.gpio_pin, GPIO.OUT)
+            self.servo = GPIO.PWM(self.gpio_pin, 50)    
+            self.servo.start(7.5)
+            
     def start(self):
         if not self.dummy:
             self.open_feeder = self.open_feeder
@@ -25,8 +32,15 @@ class Feeder(Peripheral):
             
     def open_feeder(self):
         self.status = "open"
+        self.servo.ChangeDutyCycle(2.5)
     def close_feeder(self):
         self.status = "closed"
+        self.servo.ChangeDutyCycle(7.5)
+
+    def end(self):
+        if not self.dummy():
+            self.servo.stop()
+    
     def dummy_open_feeder(self):
         self.status = "open"
     def dummy_close_feeder(self):
@@ -43,8 +57,5 @@ class Feeder(Peripheral):
         if self.dummy:
             self.dummy_close_feeder()
    
-            # def update(self):
-    #     if self.status == "open":
-    #         #set motor command here    
-    #     if self.status == "closed":
-    
+ 
+            
