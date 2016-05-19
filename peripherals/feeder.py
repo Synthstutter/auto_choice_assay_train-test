@@ -1,22 +1,15 @@
 import pigpio
-import pdb
 from peripheral import Peripheral
 try:
-    import RPi.GPIO as GPIO
+    import pigpio
 except:
-    print "RPi.GRPIO library not installed. Is this even a raspberry pi?"
+    print "pigpio library not installed. Is this even a raspberry pi?"
     
 class Feeder(Peripheral):
     def __init__(self, pi = None, *args, **kwargs):
         Peripheral.__init__(self, *args, **kwargs)
         self.pi = pi
-        
-        # if not self.dummy:
-        #     GPIO.setmode(GPIO.BOARD)
-        #     GPIO.setup(self.gpio_pin, GPIO.OUT)
-        #     self.servo = GPIO.PWM(self.gpio_pin, 50)    
-        #     self.servo.start(7.5)
-            
+    
     def start(self):
         self.status = "closed"
         if not self.dummy:
@@ -25,7 +18,7 @@ class Feeder(Peripheral):
             self.off = self.close_feeder
             self.activate_testing = self.close_feeder
             self.deactivate_testing = self.close_feeder
-            pdb.set_trace()    
+            
         if self.dummy:
             self.open_feeder = self.dummy_open_feeder
             self.close_feeder = self.dummy_close_feeder
