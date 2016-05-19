@@ -34,12 +34,16 @@ def main():
     
     
     while running:
-        if (datetime.now() - previous_time).total_seconds() > 5:
-            controller.send_scheduled_commands()
-            previous_time = datetime.now()
+        try:
+            if (datetime.now() - previous_time).total_seconds() > 5:
+                controller.send_scheduled_commands()
+                previous_time = datetime.now()
             
-        for arduino in arduinos:
-            tagger.ard_grab_and_tag_data(arduino)
+            for arduino in arduinos:
+                tagger.ard_grab_and_tag_data(arduino)
+
         
+
+
 if __name__ == "__main__":
     main()    
