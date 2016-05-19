@@ -1,17 +1,17 @@
 from peripherals import feeder, led_matrix
 from datetime import datetime
-import pdb
+import pigpio
 
-def create_devices(periphs):
+def create_devices(periphs, pi):
     "creates device objects and starts them. Starting them is important to set the variables for activate and deactivate. "
     devices_classes = []
     for item in periphs:
         if item[0] == "feeder":
-            dev = feeder.Feeder(group=item[1], gpio_pin = item[2])
+            dev = feeder.Feeder(group=item[1], gpio_pin = item[2], pi = pi)
             dev.start()
             devices_classes.append(dev)
         if item[0] == "dummy_feeder":
-            dev = feeder.Feeder(group = item[1], gpio_pin = item[2], dummy = True)
+            dev = feeder.Feeder(group = item[1], gpio_pin = item[2], dummy = True, pi = pi)
             dev.start()
             devices_classes.append(dev)
         if item[0] == "led_matrix":
@@ -52,7 +52,8 @@ def lookup_and_send (devices, group, schedule):
 class Controller():
     "Looks at schedule and tells the peripheral devices what to do."
     def __init__(self, current_experiment, schedule_a, schedule_b):
-        self.devices = create_devices(current_experiment.periphs)
+        pi = pigpio.pi()
+        self.devices = create_devices(current_experiment.periphs, pi)
         for device in self.devices:
             device.start()
         self.schedule_a = schedule_a

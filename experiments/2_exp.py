@@ -16,10 +16,10 @@ rasp_sensors = [
 program = ["a_b_switching", "simple"]
                
 
-#need to put raspberry pi pins here for these as the 3rd argument if needed. preface with "dummy_" for setting up a dummy version of peripheral device
+#need to put raspberry pi pins here for these as the 3rd argument if needed. preface with "dummy_" for setting up a dummy version of peripheral device, for pin use GPIO pin, not the regular raspberry pi board pin
 periphs =[['led_matrix', 'a' ],
           ['dummy_led_matrix', 'b' ],
-          ['feeder', 'a', 18],
+          ['feeder', 'a', 24],
           ['dummy_feeder', 'b', 2]
          ]
 
