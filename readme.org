@@ -7,3 +7,7 @@ By: Nicholas Palermo, 2016. Florida International University. npale005@fiu.edu
 - next I have to add the schedule interpreter to send commands to the pheripheral devices. Also in plans: I need an analyzer to look at the schedule to determine if the cross is "correct"
 * 2016-05-12 10:23
 - added controller to lookup things in the schedule and send commands to peripheral. Next I need to add the analyzer to tag data with "correct" or "inorrect" when a cross is made
+* 2016-05-19 18:09
+- feeders working, single led matrix working
+- I have to make the program run "sudo pigpio" on start. shouldn't be a problem since I usually run it sudo anyways. 
+- also need to add second led matrix functionality
