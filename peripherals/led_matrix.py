@@ -15,65 +15,30 @@ import pdb
 class Led_matrix(Peripheral):
     def __init__(self, *args, **kwargs):
         Peripheral.__init__(self, *args, **kwargs)
-        self.device = led.matrix()        
+        self.group = "mat"
+        
     def start(self):
         if not self.dummy:
-            self.led_init = led.matrix(cascaded = 1)
+            self.device = led.matrix(cascaded = 2)
             self.mat = []
             self.update = self.update
-            self.activate_testing = self.activate
-            self.deactivate_testing = self.deactivate
+            
         if self.dummy:
-            self.draw_bars = self.dummy_draw_bars
             self.update = self.dummy_update
-            self.activate_testing = self.activate
-            self.deactivate_testing = self.deactivate
-
-    def draw_bars(self, vertical = True):
-        if vertical:
-            self.mat=np.matrix(
-            [
-             [1,1,0,0,0,0,1,1],
-             [1,1,0,0,0,0,1,1],
-             [1,1,0,0,0,0,1,1],
-             [1,1,0,0,0,0,1,1],
-             [1,1,0,0,0,0,1,1],
-             [1,1,0,0,0,0,1,1],
-             [1,1,0,0,0,0,1,1],
-             [1,1,0,0,0,0,1,1]
-            ])
-            self.status = "vertical_bars"
-        if not vertical:
-            self.mat=np.matrix(
-            [
-            [1,1,1,1,1,1,1,1],
-            [1,1,1,1,1,1,1,1],
-            [0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0],
-            [1,1,1,1,1,1,1,1],
-            [1,1,1,1,1,1,1,1]
-            ])
-            self.status = "horizontal_bars"
-        height = self.mat.shape[0]
-        width = self.mat.shape[1]
-        for i in range(0, height):
-            for k in range(0, width):
-                self.device.pixel(k,i, self.mat[i,k], redraw = False)
+            self.draw_alternate = self.dummy_draw_alternate
+            self.draw_same = self.dummy_draw_same
 
     def clear_matrix(self):
-        
         self.mat = np.matrix(
             [
-            [0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0]
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
             ])
         self.status = "off"
         height = self.mat.shape[0]
@@ -89,52 +54,8 @@ class Led_matrix(Peripheral):
     def update(self):
         self.device.flush()
 
-    def dummy_draw_bars(self, vertical = True):
-        if vertical:
-            self.mat=np.matrix(
-            [
-             [1,1,0,0,0,0,1,1],
-             [1,1,0,0,0,0,1,1],
-             [1,1,0,0,0,0,1,1],
-             [1,1,0,0,0,0,1,1],
-             [1,1,0,0,0,0,1,1],
-             [1,1,0,0,0,0,1,1],
-             [1,1,0,0,0,0,1,1],
-             [1,1,0,0,0,0,1,1]
-            ])
-            self.status = "vertical_bars"
-        if not vertical:
-            self.mat=np.matrix(
-            [
-            [1,1,1,1,1,1,1,1],
-            [1,1,1,1,1,1,1,1],
-            [0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0],
-            [0,0,0,0,0,0,0,0],
-            [1,1,1,1,1,1,1,1],
-            [1,1,1,1,1,1,1,1]
-            ])
-            self.status = "horizontal_bars"
-
     def dummy_update(self):
-        print self.status + " drawn on group " + self.group + " ledmatrix @ " + t.strftime('%H:%M:%S') 
-
-    def activate(self):
-        if not self.dummy:
-            self.draw_bars(vertical = True)
-            self.update()
-        elif self.dummy:
-            self.dummy_draw_bars(vertical = True)
-            self.dummy_update()
-
-    def deactivate(self):
-        if not self.dummy:
-            self.draw_bars(vertical = False)
-            self.update()
-        elif self.dummy:
-            self.dummy_draw_bars(vertical = False)
-            self.dummy_update()
+        print self.status + " drawn on ledmatrix @ " + t.strftime('%H:%M:%S') 
 
     def off(self):
         if not self.dummy:
@@ -143,3 +64,126 @@ class Led_matrix(Peripheral):
         if self.dummy:
             self.dummy_clear_matrix()
             self.dummy_update()
+        print "Matrix is off"
+    def draw_alternate(self, vert_a = True):
+        if vert_a:
+            self.mat=np.matrix(
+                [
+                [1,1,1,1,1,1,1,1, 1,1,0,0,0,0,1,1],
+                [1,1,1,1,1,1,1,1, 1,1,0,0,0,0,1,1],
+                [0,0,0,0,0,0,0,0, 1,1,0,0,0,0,1,1],
+                [0,0,0,0,0,0,0,0, 1,1,0,0,0,0,1,1],
+                [0,0,0,0,0,0,0,0, 1,1,0,0,0,0,1,1],
+                [0,0,0,0,0,0,0,0, 1,1,0,0,0,0,1,1],
+                [1,1,1,1,1,1,1,1, 1,1,0,0,0,0,1,1],
+                [1,1,1,1,1,1,1,1, 1,1,0,0,0,0,1,1]
+                ])
+        if not vert_a:
+            self.mat=np.matrix(
+                [
+                [1,1,0,0,0,0,1,1, 1,1,1,1,1,1,1,1],
+                [1,1,0,0,0,0,1,1, 1,1,1,1,1,1,1,1],
+                [1,1,0,0,0,0,1,1, 0,0,0,0,0,0,0,0],
+                [1,1,0,0,0,0,1,1, 0,0,0,0,0,0,0,0],
+                [1,1,0,0,0,0,1,1, 0,0,0,0,0,0,0,0],
+                [1,1,0,0,0,0,1,1, 0,0,0,0,0,0,0,0],
+                [1,1,0,0,0,0,1,1, 1,1,1,1,1,1,1,1],
+                [1,1,0,0,0,0,1,1, 1,1,1,1,1,1,1,1]
+                ])
+        height = self.mat.shape[0]
+        width = self.mat.shape[1]
+        for i in range(0, height):
+            for k in range(0, width):
+                self.device.pixel(k,i, self.mat[i,k], redraw = False)
+        self.update()
+        print "Matrix alternate. Is A vertical? " + str(vert_a)
+
+    def draw_same(self, vertical = True):
+        if vertical:
+            self.mat=np.matrix(
+                [
+                [1,1,0,0,0,0,1,1, 1,1,0,0,0,0,1,1],
+                [1,1,0,0,0,0,1,1, 1,1,0,0,0,0,1,1],
+                [1,1,0,0,0,0,1,1, 1,1,0,0,0,0,1,1],
+                [1,1,0,0,0,0,1,1, 1,1,0,0,0,0,1,1],
+                [1,1,0,0,0,0,1,1, 1,1,0,0,0,0,1,1],
+                [1,1,0,0,0,0,1,1, 1,1,0,0,0,0,1,1],
+                [1,1,0,0,0,0,1,1, 1,1,0,0,0,0,1,1],
+                [1,1,0,0,0,0,1,1, 1,1,0,0,0,0,1,1]
+                ])
+        if not vertical:
+            self.mat=np.matrix(
+                [
+                [1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1],
+                [1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1],
+                [0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0],
+                [1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1],
+                [1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1]
+                ])
+        height = self.mat.shape[0]
+        width = self.mat.shape[1]
+        for i in range(0, height):
+            for k in range(0, width):
+                self.device.pixel(k,i, self.mat[i,k], redraw = False)
+        self.update()
+        print "Matrix same. Are both vertical? " + str(vert)
+    def dummy_draw_alternate(self, vert_a = True):
+        if vert_a:
+            self.mat=np.matrix(
+                [
+                [1,1,1,1,1,1,1,1, 1,1,0,0,0,0,1,1],
+                [1,1,1,1,1,1,1,1, 1,1,0,0,0,0,1,1],
+                [0,0,0,0,0,0,0,0, 1,1,0,0,0,0,1,1],
+                [0,0,0,0,0,0,0,0, 1,1,0,0,0,0,1,1],
+                [0,0,0,0,0,0,0,0, 1,1,0,0,0,0,1,1],
+                [0,0,0,0,0,0,0,0, 1,1,0,0,0,0,1,1],
+                [1,1,1,1,1,1,1,1, 1,1,0,0,0,0,1,1],
+                [1,1,1,1,1,1,1,1, 1,1,0,0,0,0,1,1]
+                ])
+            self.status = "Vertical bars on A"
+        if not vert_a:
+            self.mat=np.matrix(
+                [
+                [1,1,0,0,0,0,1,1, 1,1,1,1,1,1,1,1],
+                [1,1,0,0,0,0,1,1, 1,1,1,1,1,1,1,1],
+                [1,1,0,0,0,0,1,1, 0,0,0,0,0,0,0,0],
+                [1,1,0,0,0,0,1,1, 0,0,0,0,0,0,0,0],
+                [1,1,0,0,0,0,1,1, 0,0,0,0,0,0,0,0],
+                [1,1,0,0,0,0,1,1, 0,0,0,0,0,0,0,0],
+                [1,1,0,0,0,0,1,1, 1,1,1,1,1,1,1,1],
+                [1,1,0,0,0,0,1,1, 1,1,1,1,1,1,1,1]
+                ])
+            self.status = "Vertical bars on B"
+        self.update()
+
+    def dummy_draw_same(self, vert = True):
+        if vert:
+            self.mat=np.matrix(
+                [
+                [1,1,0,0,0,0,1,1, 1,1,0,0,0,0,1,1],
+                [1,1,0,0,0,0,1,1, 1,1,0,0,0,0,1,1],
+                [1,1,0,0,0,0,1,1, 1,1,0,0,0,0,1,1],
+                [1,1,0,0,0,0,1,1, 1,1,0,0,0,0,1,1],
+                [1,1,0,0,0,0,1,1, 1,1,0,0,0,0,1,1],
+                [1,1,0,0,0,0,1,1, 1,1,0,0,0,0,1,1],
+                [1,1,0,0,0,0,1,1, 1,1,0,0,0,0,1,1],
+                [1,1,0,0,0,0,1,1, 1,1,0,0,0,0,1,1]
+                ])
+            self.status = "Vertical bars both"
+        if not vertical:
+            self.mat=np.matrix(
+                [
+                [1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1],
+                [1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1],
+                [0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0],
+                [0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0],
+                [1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1],
+                [1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1]
+                ])
+            self.status = "Horizontal bars both"
+        self.update()    
