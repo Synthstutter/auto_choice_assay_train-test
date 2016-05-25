@@ -24,9 +24,11 @@ class Arduino():
             self.waiting = self.dummy_waiting
             
         else:
-            self.ser = serial.Serial(serial_name)
-            self.read = self.serial_read
-            self.write = self.serial_write
+            self.ser = serial.Serial(self.serial_name)
+            self.ser.write("1")
+            self.ser.write("2")
+            self.read = self.read
+            self.write = self.write
             self.waiting = self.serial_waiting
             
     def write(self,value):
@@ -37,11 +39,10 @@ class Arduino():
  
     def read(self):
         if self.ser.inWaiting()>0:
-            retrieved_value =  self.ser.readline()
+            retrieved_value =  self.ser.readline()[:-2]
         else:
             retrieved_value = None
-        return retrieved_value
-       
+        return retrieved_value       
     # def serial_read(self, channel=0):
     #    self.ard.write(chr(channel*2)) #request reading the channel
     #    return ord(self.ard.read(1))
