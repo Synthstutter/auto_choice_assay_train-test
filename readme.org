@@ -13,3 +13,11 @@ By: Nicholas Palermo, 2016. Florida International University. npale005@fiu.edu
 - also need to add second led matrix functionality
 * 2016-05-24 13:13
 - I have both LED matrices working well. Had to get rid of the matrix group a and b. a will just be the first display and b will be the second. I will probably have to fix this later but I'm short on time. Next I will be assembling all the hardware. Still haven't tried it with 2 feeders but I'm almost certain it will ork
+* 2016-05-25 11:33
+- arduino sensors are working. Next step is to physically build everything.
+** TODO build stuff [0/3]
+[] feeders
+[] led matrix holders
+[] wiring for everything
+
+
