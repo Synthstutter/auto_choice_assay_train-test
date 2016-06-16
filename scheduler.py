@@ -1,5 +1,8 @@
 from random import shuffle, randint
+import os
+import cPickle as pickle
 import pdb
+import time as t
 
 class Scheduler():
     def __init__(self, current_experiment):
@@ -14,8 +17,18 @@ class Scheduler():
         self.schedule_a = None
         self.schedule_b = None
         self.schedule_mat = None
-        self.create_schedules()
-
+        
+        schedule_file = "schedules/schedule" + t.strftime('_%Y_%m_%d.txt')
+        pdb.set_trace()
+        if os.path.exists(schedule_file):
+            schedule = self.load_schedule(schedule_file)
+            self.schedule_a = schedule["schedule_a"]
+            self.schedule_b = schedule["schedule_b"]
+            self.schedule_mat = schedule["schedule_mat"]        
+        else:
+            self.create_schedules()
+            self.save_schedule()
+        
     def create_schedules(self):
         resolution = 30 #seconds per smallest resolution
         group_a_schedule = [None] * (24*3600/resolution)
@@ -91,3 +104,18 @@ class Scheduler():
             group_b_schedule[i] = [i*resolution, group_b_schedule[i]]
             group_mat_schedule[i] = [i*resolution, group_mat_schedule[i]]
         self.schedule_a, self.schedule_b, self.schedule_mat = group_a_schedule, group_b_schedule, group_mat_schedule
+
+    def save_schedule(self):
+        if not os.path.exists("schedules/"):
+            os.makedirs("schedules/")
+        to_pickle = {"schedule_a": self.schedule_a, "schedule_b": self.schedule_b, "schedule_mat": self.schedule_mat}
+        f = "schedules/schedule" + t.strftime('_%Y_%m_%d.txt')  
+        with open(f, 'wb') as outfile:
+            pickle.dump(to_pickle,outfile)
+            
+    def load_schedule(self, file_to_load):
+        with open(file_to_load, 'r') as loadfile:
+            unpickled_schedule = pickle.load(loadfile)
+            return unpickled_schedule
+        
+        
