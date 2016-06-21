@@ -32,7 +32,7 @@ class Feeder(Peripheral):
         self.status = "open"
     def close_feeder(self):
         if self.status == "open":
-            self.pi.set_servo_pulsewidth(self.gpio_pin, 1500)
+            self.pi.set_servo_pulsewidth(self.gpio_pin, 1400)
         self.status = "closed"
     def end(self):
         if not self.dummy():

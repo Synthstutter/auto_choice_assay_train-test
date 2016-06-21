@@ -2,6 +2,7 @@ import serial
 import time as t
 import random
 from dummy_bee import Dummy_bee
+import pdb
 
 class Arduino():
     def __init__(self, serial_name, device_name, sensor_type, pin):
@@ -26,10 +27,12 @@ class Arduino():
         else:
             self.ser = serial.Serial(self.serial_name)
             self.ser.write("1")
+            t.sleep(0.1)
             self.ser.write("2")
             self.read = self.read
             self.write = self.write
             self.waiting = self.serial_waiting
+            pdb.set_trace()
             
     def write(self,value):
         if not self.dummy:

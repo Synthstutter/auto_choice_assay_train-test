@@ -1,7 +1,6 @@
 from random import shuffle, randint
 import os
 import cPickle as pickle
-import pdb
 import time as t
 
 class Scheduler():
@@ -19,7 +18,7 @@ class Scheduler():
         self.schedule_mat = None
         
         schedule_file = "schedules/schedule" + t.strftime('_%Y_%m_%d.txt')
-        pdb.set_trace()
+
         if os.path.exists(schedule_file):
             schedule = self.load_schedule(schedule_file)
             self.schedule_a = schedule["schedule_a"]
