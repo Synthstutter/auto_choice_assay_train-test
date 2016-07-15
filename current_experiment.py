@@ -1,4 +1,3 @@
-# current_exp = False
 
 class Current_experiment():
     def __init__(self, experiment_object):
@@ -15,4 +14,4 @@ class Current_experiment():
         self.testing_how_often = experiment_object.testing_how_often
         self.start_time = experiment_object.start_time
         self.end_time = experiment_object.end_time
-        # self.device_schedule = experiment_object.device_schedule
+

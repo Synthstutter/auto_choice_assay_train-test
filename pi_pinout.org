@@ -1,6 +1,7 @@
 - Feeders
-    A = 24
-    B = 26
+    Ground = 39
+    A = 40
+    B = 38
 - Led matrix = 
     #+5V -> RPi pin 2, +5V
     #GND -> RPi pin 6, GND
