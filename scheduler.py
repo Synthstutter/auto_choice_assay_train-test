@@ -1,3 +1,4 @@
+import pdb
 from random import shuffle, randint
 import os
 import cPickle as pickle
@@ -5,7 +6,7 @@ import time as t
 
 class Scheduler():
     def __init__(self, current_experiment):
-        
+        self.program = current_experiment.program
         self.training_switch_seconds_min = current_experiment.training_switch_seconds[0]
         self.training_switch_seconds_max = current_experiment.training_switch_seconds[1]
         self.testing_duration_secs = current_experiment.testing_duration_secs
@@ -49,6 +50,13 @@ class Scheduler():
         
         building_training_schedule = True
         building_testing_schedule = True
+
+        led_correct_condition = None
+        if self.program == "a_b_switching":
+            led_correct_condition = "vert"
+        if self.program == "on_off":
+            led_correct_condition = "on"
+            
         while building_training_schedule:
             how_long_before_switch = randint(self.training_switch_seconds_min/resolution, self.training_switch_seconds_max/resolution)
             groups = ["a", 'b']
@@ -59,11 +67,11 @@ class Scheduler():
                 if groups[0] == "a":
                     group_a_schedule[t] = "correct_training"
                     group_b_schedule[t] = "incorrect_training"
-                    group_mat_schedule[t] = "a_vert_training"
+                    group_mat_schedule[t] = "a_" + led_correct_condition + "_training"
                 elif groups[0] == "b":
                     group_a_schedule[t] = "incorrect_training"
                     group_b_schedule[t] = "correct_training"
-                    group_mat_schedule[t] = "b_vert_training"
+                    group_mat_schedule[t] = "b_" + led_correct_condition + "_training"
                     
             time_interval += how_long_before_switch
             group_a_schedule[time_interval] = "off"
@@ -86,11 +94,11 @@ class Scheduler():
                 if groups[0] == "a":
                     group_a_schedule[t] = "correct_testing"
                     group_b_schedule[t] = "incorrect_testing"
-                    group_mat_schedule[t] = "a_vert_testing"
+                    group_mat_schedule[t] = "a_" + led_correct_condition + "_testing"
                 elif groups[0] == "b":
                     group_a_schedule[t] = "incorrect_testing"
                     group_b_schedule[t] = "correct_testing"
-                    group_mat_schedule[t] = "b_vert_testing"
+                    group_mat_schedule[t] = "b_" + led_correct_condition + "_testing"
             time_interval += testing_interval_duration
             group_a_schedule[time_interval] = "off"
             group_b_schedule[time_interval] = "off"
@@ -102,6 +110,7 @@ class Scheduler():
             group_a_schedule[i] = [i*resolution, group_a_schedule[i]]
             group_b_schedule[i] = [i*resolution, group_b_schedule[i]]
             group_mat_schedule[i] = [i*resolution, group_mat_schedule[i]]
+        pdb.set_trace()
         self.schedule_a, self.schedule_b, self.schedule_mat = group_a_schedule, group_b_schedule, group_mat_schedule
 
     def save_schedule(self):

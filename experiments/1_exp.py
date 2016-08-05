@@ -2,25 +2,21 @@
 serial_name = "dummy"
 
 #the number of arduino sensors and pins and raspberry pi sensors and pins
-ard_sensors = [
-    ['left_box', 'ir', "A0"],
-    ['right_box', 'ir', "A1"],
-    ]
-
+ard_sensors = 'ir'
+    
 #not using sensors yet, but will in the near future
 rasp_sensors = [
     ]
 
 ########################################################################    
 #action of peripherals
-program = ["a_b_switching", "simple"]
+program = "on_off"
                
 
-#need to put raspberry pi pins here for these as the 3rd argument if needed. preface with "dummy_" for setting up a dummy version of peripheral device
-periphs =[['dummy_led_matrix', 'a' ],
-          ['dummy_led_matrix', 'b' ],
-          ['dummy_feeder', 'a', 1],
-          ['dummy_feeder', 'b', 2]
+#need to put raspberry pi pins here for these as the 3rd argument if needed. preface with "dummy_" for setting up a dummy version of peripheral device, for pin use GPIO pin, not the regular raspberry pi board pin
+periphs =[['led_matrix'],
+          ['dummy_feeder', 'a', 21],
+          ['dummy_feeder', 'b', 20]
          ]
 
 training_switch_seconds = [30, 300] # min time, max time
@@ -35,15 +31,15 @@ end_time = 1080
 #the experiment name used for data file name
 exp_name = "test_experiment"
 
-#database to save to
-save_file_name = "test_data.txt"
+#prefix of file name ex. save_file_name + "_date.txt"
+save_file_name = "test_data"
 
 #data to tag
 save_model = [
+    "program",
     "ard_sensor",
     "datetime",
     "correct?",
     "training?"
-    # ["correct"],
     ]
 

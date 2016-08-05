@@ -27,7 +27,8 @@ class Led_matrix(Peripheral):
             self.update = self.dummy_update
             self.draw_alternate = self.dummy_draw_alternate
             self.draw_same = self.dummy_draw_same
-
+            self.draw_on = self.dummy_draw_on
+            
     def clear_matrix(self):
         self.mat = np.matrix(
             [
@@ -56,7 +57,7 @@ class Led_matrix(Peripheral):
 
     def dummy_update(self):
         print self.status + " drawn on ledmatrix @ " + t.strftime('%H:%M:%S') 
-
+        
     def off(self):
         if not self.dummy:
             self.clear_matrix()
@@ -65,6 +66,7 @@ class Led_matrix(Peripheral):
             self.dummy_clear_matrix()
             self.dummy_update()
         print "Matrix is off"
+        
     def draw_alternate(self, vert_a = True):
         if vert_a:
             self.mat=np.matrix(
@@ -98,6 +100,41 @@ class Led_matrix(Peripheral):
         self.update()
         print "Matrix alternate. Is A vertical? " + str(vert_a)
 
+    def draw_on(self, on_a = True):
+        if on_a:
+            self.mat=np.matrix(
+                [
+                [0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1],
+                [0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1],
+                [0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1],
+                [0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1],
+                [0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1],
+                [0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1],
+                [0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1],
+                [0,0,0,0,0,0,0,0, 1,1,1,1,1,1,1,1]
+                ])
+        if not on_a:
+            self.mat=np.matrix(
+                [
+                [1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0],
+                [1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0],
+                [1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0],
+                [1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0],
+                [1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0],
+                [1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0],
+                [1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0],
+                [1,1,1,1,1,1,1,1, 0,0,0,0,0,0,0,0]
+                ])
+
+        height = self.mat.shape[0]
+        width = self.mat.shape[1]
+        for i in range(0, height):
+            for k in range(0, width):
+                self.device.pixel(k,i, self.mat[i,k], redraw = False)
+        self.update()
+        print "Matrix on/off. Is A on? " + str(on_a)
+
+
     def draw_same(self, vertical = True):
         if vertical:
             self.mat=np.matrix(
@@ -130,6 +167,14 @@ class Led_matrix(Peripheral):
                 self.device.pixel(k,i, self.mat[i,k], redraw = False)
         self.update()
         print "Matrix same. Are both vertical? " + str(vert)
+
+    def dummy_draw_on(self, on_a = True):
+        if on_a:
+            self.status = "A is on. B is off"
+        if not on_a:
+            self.status = "A is off. B is on"
+        self.update()
+    
     def dummy_draw_alternate(self, vert_a = True):
         if vert_a:
             self.mat=np.matrix(

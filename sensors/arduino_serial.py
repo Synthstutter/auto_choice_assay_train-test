@@ -4,16 +4,12 @@ import random
 from dummy_bee import Dummy_bee
 
 class Arduino():
-    def __init__(self, serial_name, device_name, sensor_type, pin):
+    def __init__(self, serial_name):
         self.serial_name = serial_name
         self.ser = False
         self.dummy = False
         if serial_name == "dummy":
             self.dummy = True
-                    
-        self.sensor_type = sensor_type
-        self.device_name = device_name
-        self.pin = pin
         self.start()        
 
     def start(self):
@@ -44,10 +40,7 @@ class Arduino():
         else:
             retrieved_value = None
         return retrieved_value       
-    # def serial_read(self, channel=0):
-    #    self.ard.write(chr(channel*2)) #request reading the channel
-    #    return ord(self.ard.read(1))
-
+  
     def weighted_choice(self, choices):
         'used just for dummy read'
         total = sum(w for c, w in choices)

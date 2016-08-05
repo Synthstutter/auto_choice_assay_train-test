@@ -66,7 +66,14 @@ def lookup_and_send_led_matrix (devices, schedule):
             device.draw_alternate()
         if to_do == "b_vert_testing":
             device.draw_alternate(vert_a = False)
-
+        if to_do == "a_on_training":
+            device.draw_on()
+        if to_do == "b_on_training":
+            device.draw_on(on_a = False)
+        if to_do == "a_on_testing":
+            device.draw_on()
+        if to_do == "b_on_training":
+            device.draw_on(on_a = False)    
 
 class Controller():
     "Looks at schedule and tells the peripheral devices what to do."
