@@ -19,5 +19,7 @@ By: Nicholas Palermo, 2016. Florida International University. npale005@fiu.edu
 [] feeders
 [] led matrix holders
 [] wiring for everything
+* 2016-08-05 13:30
+- added a simple on/off program to train bees to be interested in LEDs
 
 
