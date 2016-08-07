@@ -10,9 +10,17 @@ from periph_controller import Controller
 
 
 def main():
+
     menu = Menu()
-    curr_exp = Current_experiment(import_module("experiments." + menu.experiments_prompt()))
-    
+    curr_exp = None
+    experiments = import_module("experiments").__all__
+    for exp_name in experiments:
+        if exp_name.startswith("*"):
+            curr_exp = Current_experiment(import_module("experiments." + exp_name))
+            break
+    if not curr_exp:
+        curr_exp = Current_experiment(import_module("experiments." + menu.experiments_prompt()))
+
     arduino = arduino_serial.Arduino(serial_name = curr_exp.serial_name)
     arduino.start()
         
