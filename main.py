@@ -14,7 +14,6 @@ def main():
     menu = Menu()
     f = None
     experiments = import_module("experiments").__all__
-    pdb.set_trace()
     for exp_name in experiments:
         if exp_name.startswith("*"):
             f = exp_name
@@ -22,7 +21,8 @@ def main():
     if not f:
         f = menu.experiments_prompt()
     curr_exp = Current_experiment(import_module("experiments." + f))
-
+    pdb.set_trace()
+    
     arduino = arduino_serial.Arduino(serial_name = curr_exp.serial_name)
     arduino.start()
         

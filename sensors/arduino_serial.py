@@ -21,6 +21,7 @@ class Arduino():
             
         else:
             self.ser = serial.Serial(self.serial_name)
+            t.sleep(1)
             self.ser.write("1")
             t.sleep(1)
             self.ser.write("2")
