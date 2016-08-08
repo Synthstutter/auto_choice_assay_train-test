@@ -4,3 +4,4 @@
 *.pyc
 /venv/bin/f2py
 /venv/lib/python2.7/site-packages/numpy-1.11.0.dist-info/DESCRIPTION.rst
+*.pyc

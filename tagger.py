@@ -47,5 +47,6 @@ class Data_handler():
             for item in self.save_model:
                 self.line_to_save.append(add_param(item, self.program_name, val_from_ard, self.schedule_a))
             self.save_data(self.line_to_save)
+            print self.line_to_save
         t.sleep(0.1)
             
