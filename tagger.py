@@ -8,12 +8,13 @@ def add_param(param, program, ard_val, schedule_a):
     if param == "program":
         return program
     if param == "datetime":
-        date_handler = lambda obj: (
-            obj.isoformat()
-            if isinstance(obj, datetime.datetime)
-            or isinstance(obj, datetime.date)
-            else None)
-        return json.dumps(datetime.datetime.now(), default=date_handler)
+        return datetime.datetime.now()
+        # date_handler = lambda obj: (
+        #     obj.isoformat()
+        #     if isinstance(obj, datetime.datetime)
+        #     or isinstance(obj, datetime.date)
+        #     else None)
+        # return json.dumps(datetime.datetime.now(), default=date_handler)
     if param == 'ard_sensor':
         return ard_val
     if param == 'correct?':
