@@ -1,4 +1,3 @@
-import pdb
 from random import shuffle, randint
 import os
 import cPickle as pickle
@@ -110,7 +109,6 @@ class Scheduler():
             group_a_schedule[i] = [i*resolution, group_a_schedule[i]]
             group_b_schedule[i] = [i*resolution, group_b_schedule[i]]
             group_mat_schedule[i] = [i*resolution, group_mat_schedule[i]]
-        pdb.set_trace()
         self.schedule_a, self.schedule_b, self.schedule_mat = group_a_schedule, group_b_schedule, group_mat_schedule
 
     def save_schedule(self):

@@ -1,5 +1,4 @@
 #!/usr/bin/python
-import pdb
 from importlib import import_module
 from datetime import datetime
 from menu import Menu
@@ -21,7 +20,6 @@ def main():
     if not f:
         f = menu.experiments_prompt()
     curr_exp = Current_experiment(import_module("experiments." + f))
-    pdb.set_trace()
     
     arduino = arduino_serial.Arduino(serial_name = curr_exp.serial_name)
     arduino.start()
